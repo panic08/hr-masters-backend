@@ -3,20 +3,30 @@ package ru.panic.mainservice.security;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
-public record UserDetails(String id, String password) implements org.springframework.security.core.userdetails.UserDetails {
+public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
+    public UserDetails(String id) {
+        this.id = id;
+    }
+
+    private String id;
+    private final String password = "";
+    private final Collection<? extends GrantedAuthority> authorities = new HashSet<>();
+
+    @Override
+    public String getUsername() {
+        return this.id;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return this.authorities;
     }
 
     @Override
     public String getPassword() {
         return this.password;
-    }
-
-    @Override
-    public String getUsername() {
-        return this.id;
     }
 }

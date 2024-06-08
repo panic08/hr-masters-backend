@@ -18,7 +18,7 @@ public class MethodArgumentNotValidAdvancedHandler {
         Map<String, String> body = new HashMap<>();
 
         body.put("error", "Bad Request");
-        body.put("message", exception.getMessage());
+        body.put("message", exception.getBindingResult().getAllErrors().get(0).getDefaultMessage());
         body.put("path", request.getServletPath());
 
         return body;

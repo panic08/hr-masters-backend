@@ -14,33 +14,34 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import ru.panic.mainservice.security.jwt.JwtUtil;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 @Component
 @RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
+
     private final JwtUtil jwtUtil;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String authorization = request.getHeader("Authorization");
 
-        if (authorization != null && authorization.length() > 7) {
-            String token = authorization.substring(6);
+        if (authorization != null && authorization.startsWith("Bearer ")) {
+            String token = authorization.substring(7).trim();
 
             if (jwtUtil.isTokenValid(token) && !jwtUtil.isTokenExpired(token)) {
-                UsernamePasswordAuthenticationToken authentication
-                        = new UsernamePasswordAuthenticationToken(jwtUtil.extractIdFromToken(authorization),null);
+                UsernamePasswordAuthenticationToken authentication =
+                        new UsernamePasswordAuthenticationToken(jwtUtil.extractIdFromToken(token), "", new HashSet<>());
 
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
                 SecurityContext securityContext = SecurityContextHolder.createEmptyContext();
-
                 securityContext.setAuthentication(authentication);
-
                 SecurityContextHolder.setContext(securityContext);
             }
         }
 
-        doFilter(request, response, filterChain);
+        filterChain.doFilter(request, response);
     }
 }

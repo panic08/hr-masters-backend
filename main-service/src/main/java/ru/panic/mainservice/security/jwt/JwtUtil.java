@@ -25,7 +25,7 @@ public class JwtUtil {
     }
 
     public String extractIdFromToken(String token){
-        return extractClaim(token, Claims::getId);
+        return extractClaim(token, Claims::getSubject);
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
@@ -34,7 +34,7 @@ public class JwtUtil {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts.parser().setSigningKey(token.getBytes()).build().parseClaimsJws(token).getBody();
+        return Jwts.parserBuilder().setSigningKey(secret.getBytes()).build().parseClaimsJws(token).getBody();
     }
 
     public Date extractExpiration(String token){
@@ -43,7 +43,7 @@ public class JwtUtil {
 
     public boolean isTokenValid(String token) {
         try {
-            Jwts.parser().setSigningKey(secret.getBytes()).build().parseClaimsJws(token);
+            Jwts.parserBuilder().setSigningKey(secret.getBytes()).build().parseClaimsJws(token).getBody();
             return true;
         } catch (Exception ignored) {
             return false;
