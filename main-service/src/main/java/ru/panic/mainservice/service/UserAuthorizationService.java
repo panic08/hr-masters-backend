@@ -65,7 +65,6 @@ public class UserAuthorizationService {
             throw new InvalidPasswordException("Invalid email or password");
         }
 
-
         //Generating auth token for signed user
         
         String signedUserToken = jwtUtil.generateAccessToken(new UserDetails(signedUser.getId().toString()));
