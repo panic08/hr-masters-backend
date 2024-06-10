@@ -6,6 +6,9 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 @Table(name = "users_table")
@@ -20,5 +23,5 @@ public class User {
     private String password;
 
     @Column("registered_at")
-    private Long registeredAt;
+    private LocalDateTime registeredAt;
 }

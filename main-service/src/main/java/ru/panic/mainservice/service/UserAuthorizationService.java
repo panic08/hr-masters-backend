@@ -17,6 +17,9 @@ import ru.panic.mainservice.repository.UserRepository;
 import ru.panic.mainservice.security.UserDetails;
 import ru.panic.mainservice.security.jwt.JwtUtil;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Service
 @RequiredArgsConstructor
 public class UserAuthorizationService {
@@ -39,7 +42,7 @@ public class UserAuthorizationService {
                 User.builder()
                         .email(signUpRequest.email())
                         .password(passwordEncoder.encode(signUpRequest.password()))
-                        .registeredAt(System.currentTimeMillis())
+                        .registeredAt(LocalDateTime.now())
                         .build()
         );
 
