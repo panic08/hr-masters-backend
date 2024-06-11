@@ -13,10 +13,14 @@ import java.util.function.Function;
 
 import org.jooq.Condition;
 import org.jooq.Field;
+import org.jooq.ForeignKey;
 import org.jooq.Function4;
+import org.jooq.InverseForeignKey;
 import org.jooq.Name;
+import org.jooq.Path;
 import org.jooq.PlainSQL;
 import org.jooq.QueryPart;
+import org.jooq.Record;
 import org.jooq.Records;
 import org.jooq.Row4;
 import org.jooq.SQL;
@@ -30,6 +34,7 @@ import org.jooq.TableOptions;
 import org.jooq.UniqueKey;
 import org.jooq.generated.Keys;
 import org.jooq.generated.Public;
+import org.jooq.generated.tables.ParsedCandidatesTable.ParsedCandidatesTablePath;
 import org.jooq.generated.tables.records.UsersTableRecord;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
@@ -106,6 +111,39 @@ public class UsersTable extends TableImpl<UsersTableRecord> {
         this(DSL.name("users_table"), null);
     }
 
+    public <O extends Record> UsersTable(Table<O> path, ForeignKey<O, UsersTableRecord> childPath, InverseForeignKey<O, UsersTableRecord> parentPath) {
+        super(path, childPath, parentPath, USERS_TABLE);
+    }
+
+    /**
+     * A subtype implementing {@link Path} for simplified path-based joins.
+     */
+    public static class UsersTablePath extends UsersTable implements Path<UsersTableRecord> {
+
+        private static final long serialVersionUID = 1L;
+        public <O extends Record> UsersTablePath(Table<O> path, ForeignKey<O, UsersTableRecord> childPath, InverseForeignKey<O, UsersTableRecord> parentPath) {
+            super(path, childPath, parentPath);
+        }
+        private UsersTablePath(Name alias, Table<UsersTableRecord> aliased) {
+            super(alias, aliased);
+        }
+
+        @Override
+        public UsersTablePath as(String alias) {
+            return new UsersTablePath(DSL.name(alias), this);
+        }
+
+        @Override
+        public UsersTablePath as(Name alias) {
+            return new UsersTablePath(alias, this);
+        }
+
+        @Override
+        public UsersTablePath as(Table<?> alias) {
+            return new UsersTablePath(alias.getQualifiedName(), this);
+        }
+    }
+
     @Override
     public Schema getSchema() {
         return aliased() ? null : Public.PUBLIC;
@@ -119,6 +157,19 @@ public class UsersTable extends TableImpl<UsersTableRecord> {
     @Override
     public List<UniqueKey<UsersTableRecord>> getUniqueKeys() {
         return Arrays.asList(Keys.USERS_TABLE_EMAIL_KEY);
+    }
+
+    private transient ParsedCandidatesTablePath _parsedCandidatesTable;
+
+    /**
+     * Get the implicit to-many join path to the
+     * <code>public.parsed_candidates_table</code> table
+     */
+    public ParsedCandidatesTablePath parsedCandidatesTable() {
+        if (_parsedCandidatesTable == null)
+            _parsedCandidatesTable = new ParsedCandidatesTablePath(this, null, Keys.PARSED_CANDIDATES_TABLE__PARSED_CANDIDATES_TABLE_USER_ID_FKEY.getInverseKey());
+
+        return _parsedCandidatesTable;
     }
 
     @Override

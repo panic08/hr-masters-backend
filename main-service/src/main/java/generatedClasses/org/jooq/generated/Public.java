@@ -10,6 +10,7 @@ import java.util.List;
 import org.jooq.Catalog;
 import org.jooq.Table;
 import org.jooq.generated.tables.FlywaySchemaHistory;
+import org.jooq.generated.tables.ParsedCandidatesTable;
 import org.jooq.generated.tables.UsersTable;
 import org.jooq.impl.SchemaImpl;
 
@@ -33,6 +34,11 @@ public class Public extends SchemaImpl {
     public final FlywaySchemaHistory FLYWAY_SCHEMA_HISTORY = FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY;
 
     /**
+     * The table <code>public.parsed_candidates_table</code>.
+     */
+    public final ParsedCandidatesTable PARSED_CANDIDATES_TABLE = ParsedCandidatesTable.PARSED_CANDIDATES_TABLE;
+
+    /**
      * The table <code>public.users_table</code>.
      */
     public final UsersTable USERS_TABLE = UsersTable.USERS_TABLE;
@@ -54,6 +60,7 @@ public class Public extends SchemaImpl {
     public final List<Table<?>> getTables() {
         return Arrays.asList(
             FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,
+            ParsedCandidatesTable.PARSED_CANDIDATES_TABLE,
             UsersTable.USERS_TABLE
         );
     }

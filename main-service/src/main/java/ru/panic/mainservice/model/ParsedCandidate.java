@@ -6,20 +6,25 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Table(name = "users_table")
+@Table(name = "parsed_candidates_table")
 @Data
 @Builder
-public class User {
+public class ParsedCandidate {
     @Id
     private UUID id;
 
-    private String email;
+    private String fido;
 
-    private String password;
+    @Column("picture_url")
+    private String pictureUrl;
 
-    @Column("registered_at")
-    private LocalDateTime registeredAt;
+    @Column("position_name")
+    private String positionName;
+
+    private Integer salary;
+
+    @Column("cv_url")
+    private String cvUrl;
 }

@@ -12,8 +12,8 @@ import java.util.UUID;
 @Repository
 @RequiredArgsConstructor
 public class UserRepository {
-    private final DSLContext dslContext;
 
+    private final DSLContext dslContext;
 
     public Optional<User> findById(UUID id) {
         return Optional.ofNullable(dslContext.selectFrom(UsersTable.USERS_TABLE)
