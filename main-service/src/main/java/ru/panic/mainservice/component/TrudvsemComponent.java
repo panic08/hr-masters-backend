@@ -1,5 +1,6 @@
 package ru.panic.mainservice.component;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpEntity;
@@ -12,6 +13,7 @@ import org.springframework.web.client.RestTemplate;
 import ru.panic.mainservice.util.CookieUtil;
 
 @Component
+@Getter
 @RequiredArgsConstructor
 @Slf4j
 public class TrudvsemComponent {
@@ -42,6 +44,7 @@ public class TrudvsemComponent {
             //Setting value to JSESSIONID
 
             JSESSIONID = jsessionId;
+            System.out.println(JSESSIONID);
         } else {
             log.error("Set-Cookie header was not found when JSESSIONID was updated");
         }
