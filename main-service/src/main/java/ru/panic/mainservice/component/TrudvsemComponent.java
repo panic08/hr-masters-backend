@@ -44,7 +44,6 @@ public class TrudvsemComponent {
             //Setting value to JSESSIONID
 
             JSESSIONID = jsessionId;
-            System.out.println(JSESSIONID);
         } else {
             log.error("Set-Cookie header was not found when JSESSIONID was updated");
         }

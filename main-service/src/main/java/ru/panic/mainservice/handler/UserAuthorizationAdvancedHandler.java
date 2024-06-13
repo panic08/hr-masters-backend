@@ -40,7 +40,7 @@ public class UserAuthorizationAdvancedHandler {
     }
 
     @ExceptionHandler(value = InvalidPasswordException.class)
-    @ResponseStatus(HttpStatus.CONFLICT)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public Map<String, String> handleInvalidPasswordException(HttpServletRequest request, InvalidPasswordException exception) {
         Map<String, String> body = new HashMap<>();
 

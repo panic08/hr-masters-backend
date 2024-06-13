@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS parsed_candidates_table(
+CREATE TABLE IF NOT EXISTS candidates_table(
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID NOT NULL,
     fido VARCHAR(255) NOT NULL,

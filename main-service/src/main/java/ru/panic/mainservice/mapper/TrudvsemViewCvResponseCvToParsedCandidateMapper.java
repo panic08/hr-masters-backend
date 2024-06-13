@@ -10,6 +10,7 @@ import ru.panic.mainservice.model.ParsedCandidate;
 public interface TrudvsemViewCvResponseCvToParsedCandidateMapper {
     @Mappings({
             @Mapping(target = "id", ignore = true),
+            @Mapping(target = "userId", ignore = true),
             @Mapping(source = "positionName", target = "positionName"),
             @Mapping(source = "fio", target = "fido"),
             @Mapping(source = "salary", target = "salary"),

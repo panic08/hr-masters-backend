@@ -9,6 +9,7 @@ import java.util.List;
 
 import org.jooq.Catalog;
 import org.jooq.Table;
+import org.jooq.generated.tables.CandidatesTable;
 import org.jooq.generated.tables.FlywaySchemaHistory;
 import org.jooq.generated.tables.ParsedCandidatesTable;
 import org.jooq.generated.tables.UsersTable;
@@ -27,6 +28,11 @@ public class Public extends SchemaImpl {
      * The reference instance of <code>public</code>
      */
     public static final Public PUBLIC = new Public();
+
+    /**
+     * The table <code>public.candidates_table</code>.
+     */
+    public final CandidatesTable CANDIDATES_TABLE = CandidatesTable.CANDIDATES_TABLE;
 
     /**
      * The table <code>public.flyway_schema_history</code>.
@@ -59,6 +65,7 @@ public class Public extends SchemaImpl {
     @Override
     public final List<Table<?>> getTables() {
         return Arrays.asList(
+            CandidatesTable.CANDIDATES_TABLE,
             FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY,
             ParsedCandidatesTable.PARSED_CANDIDATES_TABLE,
             UsersTable.USERS_TABLE

@@ -34,6 +34,7 @@ import org.jooq.TableOptions;
 import org.jooq.UniqueKey;
 import org.jooq.generated.Keys;
 import org.jooq.generated.Public;
+import org.jooq.generated.tables.CandidatesTable.CandidatesTablePath;
 import org.jooq.generated.tables.ParsedCandidatesTable.ParsedCandidatesTablePath;
 import org.jooq.generated.tables.records.UsersTableRecord;
 import org.jooq.impl.DSL;
@@ -157,6 +158,19 @@ public class UsersTable extends TableImpl<UsersTableRecord> {
     @Override
     public List<UniqueKey<UsersTableRecord>> getUniqueKeys() {
         return Arrays.asList(Keys.USERS_TABLE_EMAIL_KEY);
+    }
+
+    private transient CandidatesTablePath _candidatesTable;
+
+    /**
+     * Get the implicit to-many join path to the
+     * <code>public.candidates_table</code> table
+     */
+    public CandidatesTablePath candidatesTable() {
+        if (_candidatesTable == null)
+            _candidatesTable = new CandidatesTablePath(this, null, Keys.CANDIDATES_TABLE__CANDIDATES_TABLE_USER_ID_FKEY.getInverseKey());
+
+        return _candidatesTable;
     }
 
     private transient ParsedCandidatesTablePath _parsedCandidatesTable;

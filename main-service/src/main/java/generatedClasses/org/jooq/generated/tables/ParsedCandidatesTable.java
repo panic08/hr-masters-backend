@@ -171,11 +171,6 @@ public class ParsedCandidatesTable extends TableImpl<ParsedCandidatesTableRecord
     }
 
     @Override
-    public List<UniqueKey<ParsedCandidatesTableRecord>> getUniqueKeys() {
-        return Arrays.asList(Keys.PARSED_CANDIDATES_TABLE_FIDO_KEY);
-    }
-
-    @Override
     public List<ForeignKey<ParsedCandidatesTableRecord, ?>> getReferences() {
         return Arrays.asList(Keys.PARSED_CANDIDATES_TABLE__PARSED_CANDIDATES_TABLE_USER_ID_FKEY);
     }

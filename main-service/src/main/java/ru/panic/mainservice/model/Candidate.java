@@ -8,10 +8,10 @@ import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.UUID;
 
-@Table(name = "parsed_candidates_table")
+@Table(name = "candidates_table")
 @Data
 @Builder
-public class ParsedCandidate {
+public class Candidate {
     @Id
     private UUID id;
 

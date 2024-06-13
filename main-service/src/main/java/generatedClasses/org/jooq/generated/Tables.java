@@ -4,6 +4,7 @@
 package org.jooq.generated;
 
 
+import org.jooq.generated.tables.CandidatesTable;
 import org.jooq.generated.tables.FlywaySchemaHistory;
 import org.jooq.generated.tables.ParsedCandidatesTable;
 import org.jooq.generated.tables.UsersTable;
@@ -14,6 +15,11 @@ import org.jooq.generated.tables.UsersTable;
  */
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
+
+    /**
+     * The table <code>public.candidates_table</code>.
+     */
+    public static final CandidatesTable CANDIDATES_TABLE = CandidatesTable.CANDIDATES_TABLE;
 
     /**
      * The table <code>public.flyway_schema_history</code>.

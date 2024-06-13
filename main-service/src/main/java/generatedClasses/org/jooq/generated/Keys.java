@@ -7,9 +7,11 @@ package org.jooq.generated;
 import org.jooq.ForeignKey;
 import org.jooq.TableField;
 import org.jooq.UniqueKey;
+import org.jooq.generated.tables.CandidatesTable;
 import org.jooq.generated.tables.FlywaySchemaHistory;
 import org.jooq.generated.tables.ParsedCandidatesTable;
 import org.jooq.generated.tables.UsersTable;
+import org.jooq.generated.tables.records.CandidatesTableRecord;
 import org.jooq.generated.tables.records.FlywaySchemaHistoryRecord;
 import org.jooq.generated.tables.records.ParsedCandidatesTableRecord;
 import org.jooq.generated.tables.records.UsersTableRecord;
@@ -28,8 +30,8 @@ public class Keys {
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final UniqueKey<CandidatesTableRecord> CANDIDATES_TABLE_PKEY = Internal.createUniqueKey(CandidatesTable.CANDIDATES_TABLE, DSL.name("candidates_table_pkey"), new TableField[] { CandidatesTable.CANDIDATES_TABLE.ID }, true);
     public static final UniqueKey<FlywaySchemaHistoryRecord> FLYWAY_SCHEMA_HISTORY_PK = Internal.createUniqueKey(FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY, DSL.name("flyway_schema_history_pk"), new TableField[] { FlywaySchemaHistory.FLYWAY_SCHEMA_HISTORY.INSTALLED_RANK }, true);
-    public static final UniqueKey<ParsedCandidatesTableRecord> PARSED_CANDIDATES_TABLE_FIDO_KEY = Internal.createUniqueKey(ParsedCandidatesTable.PARSED_CANDIDATES_TABLE, DSL.name("parsed_candidates_table_fido_key"), new TableField[] { ParsedCandidatesTable.PARSED_CANDIDATES_TABLE.FIDO }, true);
     public static final UniqueKey<ParsedCandidatesTableRecord> PARSED_CANDIDATES_TABLE_PKEY = Internal.createUniqueKey(ParsedCandidatesTable.PARSED_CANDIDATES_TABLE, DSL.name("parsed_candidates_table_pkey"), new TableField[] { ParsedCandidatesTable.PARSED_CANDIDATES_TABLE.ID }, true);
     public static final UniqueKey<UsersTableRecord> USERS_TABLE_EMAIL_KEY = Internal.createUniqueKey(UsersTable.USERS_TABLE, DSL.name("users_table_email_key"), new TableField[] { UsersTable.USERS_TABLE.EMAIL }, true);
     public static final UniqueKey<UsersTableRecord> USERS_TABLE_PKEY = Internal.createUniqueKey(UsersTable.USERS_TABLE, DSL.name("users_table_pkey"), new TableField[] { UsersTable.USERS_TABLE.ID }, true);
@@ -38,5 +40,6 @@ public class Keys {
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final ForeignKey<CandidatesTableRecord, UsersTableRecord> CANDIDATES_TABLE__CANDIDATES_TABLE_USER_ID_FKEY = Internal.createForeignKey(CandidatesTable.CANDIDATES_TABLE, DSL.name("candidates_table_user_id_fkey"), new TableField[] { CandidatesTable.CANDIDATES_TABLE.USER_ID }, Keys.USERS_TABLE_PKEY, new TableField[] { UsersTable.USERS_TABLE.ID }, true);
     public static final ForeignKey<ParsedCandidatesTableRecord, UsersTableRecord> PARSED_CANDIDATES_TABLE__PARSED_CANDIDATES_TABLE_USER_ID_FKEY = Internal.createForeignKey(ParsedCandidatesTable.PARSED_CANDIDATES_TABLE, DSL.name("parsed_candidates_table_user_id_fkey"), new TableField[] { ParsedCandidatesTable.PARSED_CANDIDATES_TABLE.USER_ID }, Keys.USERS_TABLE_PKEY, new TableField[] { UsersTable.USERS_TABLE.ID }, true);
 }

@@ -20,7 +20,7 @@ import ru.panic.mainservice.service.UserAuthorizationService;
 
 @RestController
 @RequestMapping("/api/v1/user/auth")
-@Tag(name = "Auth API", description = "This blocks describe the Auth API")
+@Tag(name = "User Auth API", description = "This blocks describe the User Auth API")
 @RequiredArgsConstructor
 public class UserAuthorizationController {
 
@@ -31,7 +31,7 @@ public class UserAuthorizationController {
     @ApiResponses({
             @ApiResponse(responseCode = "200"),
             @ApiResponse(responseCode = "400", description = "Email must be correct; The password size can be from 4 to 24 characters long"),
-            @ApiResponse(responseCode = "401", description = "A user with this Email already exists")
+            @ApiResponse(responseCode = "409", description = "A user with this Email already exists")
     })
     public ResponseEntity<SignUpResponse> signUp(@RequestBody @Valid SignUpRequest signUpRequest) {
         return ResponseEntity.status(HttpStatus.CREATED)

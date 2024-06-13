@@ -8,11 +8,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.web.bind.annotation.*;
 import ru.panic.mainservice.dto.ParsedCandidateDto;
+import ru.panic.mainservice.payload.request.DeleteParsedCandidateByIdsRequest;
+import ru.panic.mainservice.payload.request.ReplaceAllToCandidateRequest;
 import ru.panic.mainservice.service.ParsedCandidateService;
 
 import java.util.List;
@@ -27,7 +30,7 @@ public class ParsedCandidateController {
     private final ParsedCandidateService parsedCandidateService;
 
     @GetMapping("/get_all")
-    @Operation(description = "Get all ParsedCandidate")
+    @Operation(description = "Get all")
     @Parameter(in = ParameterIn.HEADER, name = "Authorization",
             required = true,
             content = @Content(schema = @Schema(implementation = String.class)))
@@ -40,7 +43,7 @@ public class ParsedCandidateController {
     }
 
     @PostMapping("/parse")
-    @Operation(description = "Parse ParsedCandidate from different sources")
+    @Operation(description = "Parse from different sources")
     @Parameter(in = ParameterIn.HEADER, name = "Authorization",
             required = true,
             content = @Content(schema = @Schema(implementation = String.class)))
@@ -53,6 +56,40 @@ public class ParsedCandidateController {
                                                           @RequestParam("position_count") Integer positionCount) {
         return ResponseEntity.ok(parsedCandidateService.parse(UUID.fromString((String) usernamePasswordAuthenticationToken.getPrincipal()),
                 positionName, positionCount));
+    }
+
+    @PostMapping("/replace_all_to_candidate")
+    @Operation(description = "Replace all to Candidate by ids")
+    @Parameter(in = ParameterIn.HEADER, name = "Authorization",
+            required = true,
+            content = @Content(schema = @Schema(implementation = String.class)))
+    @ApiResponses({
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "400", description = "Enter at least one id"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+    })
+    public ResponseEntity<Void> replaceAllToCandidate(UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken,
+                                                      @RequestBody @Valid ReplaceAllToCandidateRequest replaceAllToCandidateRequest) {
+        parsedCandidateService.replaceAllToCandidate(UUID.fromString((String) usernamePasswordAuthenticationToken.getPrincipal()),
+                replaceAllToCandidateRequest);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/deleteByIds")
+    @Operation(description = "Delete by ids")
+    @Parameter(in = ParameterIn.HEADER, name = "Authorization",
+            required = true,
+            content = @Content(schema = @Schema(implementation = String.class)))
+    @ApiResponses({
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "400", description = "Enter at least one id"),
+            @ApiResponse(responseCode = "401", description = "Unauthorized"),
+    })
+    public ResponseEntity<Void> deleteByIds(UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken,
+                                               @RequestBody @Valid DeleteParsedCandidateByIdsRequest deleteParsedCandidateByIdsRequest) {
+        parsedCandidateService.deleteByIds(UUID.fromString((String) usernamePasswordAuthenticationToken.getPrincipal()),
+                deleteParsedCandidateByIdsRequest);
+        return ResponseEntity.ok().build();
     }
 
 }
