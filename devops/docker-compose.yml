@@ -1,0 +1,63 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: db
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=1234
+    ports:
+      - "5432:5432"
+    networks:
+      services:
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  main-service:
+    build:
+      context: ../main-service
+    ports:
+      - "9000:9000"
+    networks:
+      services:
+    depends_on:
+      - db
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana:/var/lib/grafana
+      - ./monitoring/grafana:/etc/datasources
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=1234
+    networks:
+      monitoring:
+        aliases:
+          - grafana
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus:/prometheus
+    networks:
+      services:
+      monitoring:
+        aliases:
+          - prometheus
+
+networks:
+  services:
+  monitoring:
+
+volumes:
+  grafana:
+  prometheus:
+  db-data:
