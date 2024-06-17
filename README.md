@@ -11,7 +11,7 @@ HR Masters is a service providing an easy way to search for employees using simp
 
 ## About the Project
 
-HR Masters enables HR professionals to search for potential employees based on various parameters with simple queries. By leveraging modern technologies and DevOps practices, the project is easily scalable and highly available.
+HR Masters enables HR professionals to search for potential employees based on various parameters with simple queries.
 
 ## Getting Started
 
@@ -37,10 +37,3 @@ HR Masters enables HR professionals to search for potential employees based on v
     - `docker/` - Docker and Docker Compose configurations
     - `metrics/` - Grafana and Prometheus configurations
 
-## Contact
-
-If you have any questions or suggestions, please reach out via issues or pull requests in this repository.
-
----
-
-HR Masters - your assistant in employee search!
